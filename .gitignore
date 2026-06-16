@@ -1,0 +1,96 @@
+*.iml
+.gradle
+/local.properties
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+local.properties
+
+```gitignore
+# Gradle
+.gradle/
+build/
+*/build/
+!gradle/wrapper/gradle-wrapper.jar
+
+# Local Gradle config
+gradle.properties
+
+# Android Studio / IntelliJ
+.idea/
+*.iml
+*.ipr
+*.iws
+out/
+
+# Android generated files
+local.properties
+captures/
+.externalNativeBuild/
+.cxx/
+*.apk
+*.ap_
+*.aab
+
+# Kotlin
+.kotlin/
+*.kotlin_module
+
+# Java / JVM
+*.class
+*.jar
+*.war
+*.ear
+
+# Generated sources
+generated/
+ksp/
+*/ksp/
+*/generated/
+
+# KAPT
+kapt/
+*/kapt/
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Keystores and signing
+*.jks
+*.keystore
+keystore.properties
+signing.properties
+
+# Secrets / environment files
+.env
+.env.*
+google-services.json
+secrets.properties
+
+# Test / coverage reports
+coverage/
+*.ec
+*.exec
+jacoco/
+test-results/
+
+# Lint
+lint-results*.xml
+lint-results*.html
+
+# ProGuard / R8 generated mapping
+mapping/
+*/mapping/
+```
