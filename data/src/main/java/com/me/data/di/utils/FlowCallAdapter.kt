@@ -1,6 +1,6 @@
 package com.me.data.di.utils
 
-import com.me.data.remote.api.ApiResponse
+import com.me.data.datasource.remote.api.ApiResponse
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow

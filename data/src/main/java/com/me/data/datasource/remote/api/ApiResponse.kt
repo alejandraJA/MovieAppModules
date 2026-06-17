@@ -1,4 +1,4 @@
-package com.me.data.remote.api
+package com.me.data.datasource.remote.api
 
 import retrofit2.Response
 import timber.log.Timber

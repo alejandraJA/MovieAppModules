@@ -1,6 +1,6 @@
 package com.me.data.di.utils
 
-import com.me.data.remote.api.ApiResponse
+import com.me.data.datasource.remote.api.ApiResponse
 import kotlinx.coroutines.flow.Flow
 import retrofit2.CallAdapter
 import retrofit2.Retrofit

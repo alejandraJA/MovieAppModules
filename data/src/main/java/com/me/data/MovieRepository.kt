@@ -1,11 +1,11 @@
 package com.me.data
 
-import com.me.data.local.dao.MovieDao
+import com.me.data.datasource.local.dao.MovieDao
 import com.me.data.di.utils.NetworkBoundResource
-import com.me.data.local.entities.MovieEntity
-import com.me.data.remote.MovieService
-import com.me.data.remote.api.ApiResponse
-import com.me.data.remote.response.MoviesResponse
+import com.me.data.datasource.local.entities.MovieEntity
+import com.me.data.datasource.remote.MovieService
+import com.me.data.datasource.remote.api.ApiResponse
+import com.me.data.datasource.remote.response.MoviesResponse
 import com.me.domain.IMovieRepository
 import com.me.domain.Movie
 import com.me.domain.Resource

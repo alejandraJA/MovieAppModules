@@ -1,10 +1,10 @@
-package com.me.data.local.dao
+package com.me.data.datasource.local.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.me.data.local.entities.MovieEntity
+import com.me.data.datasource.local.entities.MovieEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao

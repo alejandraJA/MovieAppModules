@@ -1,4 +1,4 @@
-package com.me.data.local.entities
+package com.me.data.datasource.local.entities
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

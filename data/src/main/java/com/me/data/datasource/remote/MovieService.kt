@@ -1,7 +1,7 @@
-package com.me.data.remote
+package com.me.data.datasource.remote
 
-import com.me.data.remote.api.ApiResponse
-import com.me.data.remote.response.MoviesResponse
+import com.me.data.datasource.remote.api.ApiResponse
+import com.me.data.datasource.remote.response.MoviesResponse
 import kotlinx.coroutines.flow.Flow
 import retrofit2.http.GET
 import retrofit2.http.Query

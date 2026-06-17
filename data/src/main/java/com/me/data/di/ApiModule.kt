@@ -2,7 +2,7 @@ package com.me.data.di
 
 
 import com.me.data.di.utils.FlowCallAdapterFactory
-import com.me.data.remote.MovieService
+import com.me.data.datasource.remote.MovieService
 import com.me.domain.BuildConfig
 import dagger.Module
 import dagger.Provides

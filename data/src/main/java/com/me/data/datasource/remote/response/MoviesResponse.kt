@@ -1,7 +1,7 @@
-package com.me.data.remote.response
+package com.me.data.datasource.remote.response
 
 import com.google.gson.annotations.SerializedName
-import com.me.data.remote.model.MovieModel
+import com.me.data.datasource.remote.model.MovieModel
 
 data class MoviesResponse(
     @SerializedName("results")

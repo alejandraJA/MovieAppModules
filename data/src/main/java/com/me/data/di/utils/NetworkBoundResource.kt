@@ -1,6 +1,6 @@
 package com.me.data.di.utils
 
-import com.me.data.remote.api.ApiResponse
+import com.me.data.datasource.remote.api.ApiResponse
 import com.me.domain.Resource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

@@ -1,8 +1,8 @@
 package com.me.data.di
 
 import android.content.Context
-import com.me.data.local.dao.MovieDao
-import com.me.data.local.db.AppDatabase
+import com.me.data.datasource.local.dao.MovieDao
+import com.me.data.datasource.local.db.AppDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
