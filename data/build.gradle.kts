@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.com.google.android.ksp)
+    id("dagger.hilt.android.plugin")
     // id("com.google.devtoold.ksp")
     //id("dagger.hilt.android.plugin")
 }
@@ -32,6 +33,12 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(libs.androidx.junit)
 
+    // Hilt
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.android.compiler)
+    // Dagger
+    implementation(libs.dagger)
+    ksp(libs.dagger.compiler)
     // Room
     implementation(libs.androidx.room.runtime)
     ksp(libs.androidx.room.compiler)

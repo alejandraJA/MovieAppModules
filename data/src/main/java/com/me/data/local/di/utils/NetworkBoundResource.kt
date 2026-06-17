@@ -1,4 +1,4 @@
-package com.me.data
+package com.me.data.local.di.utils
 
 import androidx.annotation.MainThread
 import androidx.annotation.WorkerThread

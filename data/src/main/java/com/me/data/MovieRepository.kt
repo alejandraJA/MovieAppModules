@@ -3,6 +3,8 @@ package com.me.data
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
 import com.me.data.local.dao.MovieDao
+import com.me.data.local.di.utils.AppExecutors
+import com.me.data.local.di.utils.NetworkBoundResource
 import com.me.data.local.entities.MovieEntity
 import com.me.data.remote.MovieService
 import com.me.data.remote.api.ApiResponse
@@ -11,8 +13,11 @@ import com.me.domain.IMovieRepository
 import com.me.domain.Movie
 import com.me.domain.Resource
 import com.me.domain.Constants
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class MovieRepository constructor(
+@Singleton
+class MovieRepository @Inject constructor(
     private val dao: MovieDao,
     private val service: MovieService,
     private val appExecutor: AppExecutors
