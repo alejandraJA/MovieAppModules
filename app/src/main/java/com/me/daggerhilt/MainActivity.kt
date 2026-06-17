@@ -38,8 +38,8 @@ class MainActivity : ComponentActivity() {
             }
         }
         lifecycleScope.launch {
-            viewModel.movies.collect { it ->
-                Log.d("Ali", "onCreate: ${it.data}")
+            viewModel.movies.collect {
+                Log.d("Ali", "onCreate: $it")
             }
         }
     }

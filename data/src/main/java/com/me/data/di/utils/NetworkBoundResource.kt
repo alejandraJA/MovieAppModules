@@ -1,7 +1,7 @@
 package com.me.data.di.utils
 
 import com.me.data.datasource.remote.api.ApiResponse
-import com.me.domain.Resource
+import com.me.domain.UiState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
@@ -12,31 +12,31 @@ import kotlinx.coroutines.flow.map
 
 abstract class NetworkBoundResource<ResultType, RequestType> {
 
-    fun asFlow(): Flow<Resource<ResultType>> = flow {
-        emit(Resource.loading(null))
+    fun asFlow(): Flow<UiState<ResultType>> = flow {
+        emit(UiState.Loading(null))
 
         val dbValue = loadFromDb().firstOrNull()
 
         if (shouldFetch(dbValue)) {
-            emit(Resource.loading(dbValue))
+            emit(UiState.Loading(dbValue))
 
             when (val response = createCall()) {
                 is ApiResponse.ApiSuccessResponse -> {
                     saveCallResult(processResponse(response))
-                    emitAll(loadFromDb().map { Resource.success(it) })
+                    emitAll(loadFromDb().map { UiState.Success(it) })
                 }
 
                 is ApiResponse.ApiEmptyResponse -> {
-                    emitAll(loadFromDb().map { Resource.success(it) })
+                    emitAll(loadFromDb().map { UiState.Success(it) })
                 }
 
                 is ApiResponse.ApiErrorResponse -> {
                     onFetchFailed()
-                    emitAll(loadFromDb().map { Resource.error(response.errorMessage, it) })
+                    emitAll(loadFromDb().map { UiState.Error(response.errorMessage, it) })
                 }
             }
         } else {
-            emitAll(loadFromDb().map { Resource.success(it) })
+            emitAll(loadFromDb().map { UiState.Success(it) })
         }
     }.flowOn(Dispatchers.IO)
 
