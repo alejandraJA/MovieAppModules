@@ -1,9 +1,6 @@
 package com.me.data
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.map
 import com.me.data.local.dao.MovieDao
-import com.me.data.local.di.utils.AppExecutors
 import com.me.data.local.di.utils.NetworkBoundResource
 import com.me.data.local.entities.MovieEntity
 import com.me.data.remote.MovieService
@@ -13,38 +10,41 @@ import com.me.domain.IMovieRepository
 import com.me.domain.Movie
 import com.me.domain.Resource
 import com.me.domain.Constants
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class MovieRepository @Inject constructor(
     private val dao: MovieDao,
-    private val service: MovieService,
-    private val appExecutor: AppExecutors
+    private val service: MovieService
 ) : IMovieRepository {
-    override fun loadMovies(): LiveData<Resource<List<Movie>>> =
-        object : NetworkBoundResource<List<MovieEntity>, MoviesResponse>(appExecutor) {
-            override fun saveCallResult(response: MoviesResponse) =
-                response.listMovies.forEach { movie ->
-                    dao.setMovie(
-                        MovieEntity(
-                            movie.id,
-                            movie.title,
-                            movie.originalTitle,
-                            movie.overview,
-                            movie.posterPath,
-                            like = false
-                        )
+    override fun loadMovies(): Flow<Resource<List<Movie>>> =
+        object : NetworkBoundResource<List<MovieEntity>, MoviesResponse>() {
+            override suspend fun saveCallResult(response: MoviesResponse) {
+                val list = response.listMovies.map {
+                    MovieEntity(
+                        it.id,
+                        it.title,
+                        it.originalTitle,
+                        it.overview,
+                        it.posterPath,
+                        like = false
                     )
                 }
+                dao.deleteMovies()
+                dao.setMovies(list)
+            }
 
             override fun shouldFetch(data: List<MovieEntity>?): Boolean = data.isNullOrEmpty()
 
-            override fun loadFromDb(): LiveData<List<MovieEntity>> = dao.getMovies()
+            override fun loadFromDb(): Flow<List<MovieEntity>> = dao.getMovies()
 
-            override fun createCall(): LiveData<ApiResponse<MoviesResponse>> =
-                service.loadMovies(Constants.API_KEY)
-        }.asLiveData().map { resource ->
+            override suspend fun createCall(): ApiResponse<MoviesResponse> =
+                service.loadMovies(Constants.API_KEY).first()
+        }.asFlow().map { resource ->
             Resource(
                 resource.status,
                 resource.data?.map { it.toMovie() },
@@ -55,8 +55,5 @@ class MovieRepository @Inject constructor(
     override fun updateMovie(id: Int, check: Boolean) = dao.updateMovie(id, check)
 
 }
-
-private fun MovieEntity.toMovie(): Movie =
-    Movie(id, title, originalTitle, overview, posterPath, like)
 
 

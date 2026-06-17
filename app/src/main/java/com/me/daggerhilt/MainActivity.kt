@@ -13,8 +13,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.me.daggerhilt.ui.theme.DaggerHiltTheme
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -35,8 +37,10 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
-        viewModel.movies.observe(this) {
-            Log.d("MainActivity", "onCreate: ${it.data}")
+        lifecycleScope.launch {
+            viewModel.movies.collect { it ->
+                Log.d("Ali", "onCreate: ${it.data}")
+            }
         }
     }
 }

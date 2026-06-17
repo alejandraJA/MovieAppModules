@@ -1,96 +1,55 @@
 package com.me.data.local.di.utils
 
-import androidx.annotation.MainThread
-import androidx.annotation.WorkerThread
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
 import com.me.data.remote.api.ApiResponse
 import com.me.domain.Resource
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.emitAll
+import kotlinx.coroutines.flow.firstOrNull
+import kotlinx.coroutines.flow.map
 
-abstract class NetworkBoundResource<ResultType, RequestType> @MainThread constructor(
-    private val appExecutorsKts: AppExecutors
-) {
+abstract class NetworkBoundResource<ResultType, RequestType> {
 
-    private val result = MediatorLiveData<Resource<ResultType>>()
+    fun asFlow(): Flow<Resource<ResultType>> = flow {
+        emit(Resource.loading(null))
 
-    init {
-        result.value = Resource.loading(null)
-        @Suppress("LeakingThis")
-        val dbSource = loadFromDb()
-        result.addSource(dbSource) { data ->
-            result.removeSource(dbSource)
-            if (shouldFetch(data))
-                fetchFromNetwork(dbSource)
-            else result.addSource(dbSource) { newData ->
-                setValue(Resource.success(newData))
-            }
+        val dbValue = loadFromDb().firstOrNull()
 
-        }
-    }
+        if (shouldFetch(dbValue)) {
+            emit(Resource.loading(dbValue))
 
-    @MainThread
-    private fun setValue(newValue: Resource<ResultType>) {
-        if (result.value != newValue) {
-            result.value = newValue
-        }
-    }
-
-    private fun fetchFromNetwork(dbSource: LiveData<ResultType>) {
-        val apiResponse: LiveData<ApiResponse<RequestType>> = createCall()
-        result.addSource(dbSource) { newData ->
-            setValue(Resource.loading(newData))
-        }
-        result.addSource(apiResponse) { response ->
-            result.removeSource(apiResponse)
-            result.removeSource(dbSource)
-            when (response) {
+            when (val response = createCall()) {
                 is ApiResponse.ApiSuccessResponse -> {
-                    appExecutorsKts.diskIO().execute {
-                        saveCallResult(processResponse(response))
-                        appExecutorsKts.mainThread().execute {
-                            result.addSource(loadFromDb()) { newData ->
-                                setValue(Resource.success(newData))
-                            }
-                        }
-                    }
+                    saveCallResult(processResponse(response))
+                    emitAll(loadFromDb().map { Resource.success(it) })
                 }
 
                 is ApiResponse.ApiEmptyResponse -> {
-                    appExecutorsKts.mainThread().execute {
-                        // reload from disk whatever we had
-                        result.addSource(loadFromDb()) { newData ->
-                            setValue(Resource.success(newData))
-                        }
-                    }
+                    emitAll(loadFromDb().map { Resource.success(it) })
                 }
 
                 is ApiResponse.ApiErrorResponse -> {
                     onFetchFailed()
-                    result.addSource(dbSource) { newData ->
-                        setValue(Resource.error(response.errorMessage, newData))
-                    }
+                    emitAll(loadFromDb().map { Resource.error(response.errorMessage, it) })
                 }
             }
+        } else {
+            emitAll(loadFromDb().map { Resource.success(it) })
         }
-    }
+    }.flowOn(Dispatchers.IO)
 
     protected open fun onFetchFailed() {}
 
-    fun asLiveData() = result as LiveData<Resource<ResultType>>
-
-    @WorkerThread
     protected open fun processResponse(response: ApiResponse.ApiSuccessResponse<RequestType>): RequestType =
         response.body
 
-    @WorkerThread
-    protected abstract fun saveCallResult(response: RequestType)
+    protected abstract suspend fun saveCallResult(response: RequestType)
 
-    @MainThread
     protected abstract fun shouldFetch(data: ResultType?): Boolean
 
-    @MainThread
-    protected abstract fun loadFromDb(): LiveData<ResultType>
+    protected abstract fun loadFromDb(): Flow<ResultType>
 
-    @MainThread
-    protected abstract fun createCall(): LiveData<ApiResponse<RequestType>>
+    protected abstract suspend fun createCall(): ApiResponse<RequestType>
 }

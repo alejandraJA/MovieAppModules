@@ -1,8 +1,7 @@
 package com.me.data.local.di
 
 
-import com.me.data.local.di.utils.AppExecutors
-import com.me.data.local.di.utils.LiveDataCallAdapterFactory
+import com.me.data.local.di.utils.FlowCallAdapterFactory
 import com.me.data.remote.MovieService
 import com.me.domain.BuildConfig
 import dagger.Module
@@ -35,7 +34,7 @@ object ApiModule {
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit = Retrofit.Builder()
         .baseUrl(BuildConfig.BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())
-        .addCallAdapterFactory(LiveDataCallAdapterFactory())
+        .addCallAdapterFactory(FlowCallAdapterFactory())
         .client(okHttpClient)
         .build()
 
@@ -44,8 +43,5 @@ object ApiModule {
     fun provideMovieService(retrofit: Retrofit): MovieService =
         retrofit.create(MovieService::class.java)
 
-    @Provides
-    @Singleton
-    fun provideAppExecutors(): AppExecutors = AppExecutors()
 }
 
