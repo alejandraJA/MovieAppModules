@@ -1,4 +1,4 @@
-package com.me.daggerhilt
+package com.me.daggerhilt.ui.theme.main
 
 import androidx.lifecycle.ViewModel
 import com.me.domain.IMovieRepository

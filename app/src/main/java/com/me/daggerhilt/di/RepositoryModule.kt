@@ -15,9 +15,11 @@ import javax.inject.Singleton
 object RepositoryModule {
     @Singleton
     @Provides
-    fun provideMovieRepository(movieRepository: MovieRepository): IMovieRepository = movieRepository
+    fun provideMovieRepository(movieRepository: MovieRepository): IMovieRepository =
+        movieRepository
 
     @Singleton
     @Provides
-    fun provideUserRepository(userRepository: UserRepository): IUserRepository = userRepository
+    fun provideUserRepository(userRepository: UserRepository): IUserRepository =
+        userRepository
 }

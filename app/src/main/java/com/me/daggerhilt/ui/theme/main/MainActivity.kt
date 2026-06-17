@@ -1,4 +1,4 @@
-package com.me.daggerhilt
+package com.me.daggerhilt.ui.theme.main
 
 import android.os.Bundle
 import android.util.Log
