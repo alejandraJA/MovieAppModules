@@ -1,7 +1,7 @@
-package com.me.data.local.di
+package com.me.data.di
 
 
-import com.me.data.local.di.utils.FlowCallAdapterFactory
+import com.me.data.di.utils.FlowCallAdapterFactory
 import com.me.data.remote.MovieService
 import com.me.domain.BuildConfig
 import dagger.Module

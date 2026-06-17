@@ -1,4 +1,4 @@
-package com.me.data.local.di.utils
+package com.me.data.di.utils
 
 import com.me.data.remote.api.ApiResponse
 import kotlinx.coroutines.channels.awaitClose

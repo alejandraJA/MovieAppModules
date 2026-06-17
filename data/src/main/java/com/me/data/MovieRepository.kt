@@ -1,7 +1,7 @@
 package com.me.data
 
 import com.me.data.local.dao.MovieDao
-import com.me.data.local.di.utils.NetworkBoundResource
+import com.me.data.di.utils.NetworkBoundResource
 import com.me.data.local.entities.MovieEntity
 import com.me.data.remote.MovieService
 import com.me.data.remote.api.ApiResponse

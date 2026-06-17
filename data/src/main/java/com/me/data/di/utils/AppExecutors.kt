@@ -1,4 +1,4 @@
-package com.me.data.local.di.utils
+package com.me.data.di.utils
 
 import android.os.Handler
 import android.os.Looper

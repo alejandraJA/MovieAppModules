@@ -1,4 +1,4 @@
-package com.me.data.local.di
+package com.me.data.di
 
 import android.content.Context
 import com.me.data.local.dao.MovieDao
