@@ -6,9 +6,7 @@ plugins {
 android {
     namespace = "com.me.daggerhilt"
     compileSdk {
-        version = release(36) {
-            minorApiLevel = 1
-        }
+        version = release(37)
     }
 
     defaultConfig {
@@ -27,6 +25,11 @@ android {
                 enable = false
             }
         }
+        debug {
+            applicationIdSuffix = ".debug"
+            isDebuggable = true
+            versionNameSuffix = "-debug"
+        }
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
@@ -38,6 +41,7 @@ android {
 }
 
 dependencies {
+    implementation(project(":domain"))
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.compose.material3)
