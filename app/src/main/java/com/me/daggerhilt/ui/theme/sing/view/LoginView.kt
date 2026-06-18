@@ -25,8 +25,8 @@ fun LoginView(
         .padding(horizontal = 16.dp)
         .padding(top = 8.dp),
 ) {
-    val user = remember { mutableStateOf("") }
-    val password = remember { mutableStateOf("") }
+    val user = remember { mutableStateOf("User") }
+    val password = remember { mutableStateOf("1234") }
     val modifier = Modifier
         .padding(horizontal = 16.dp)
         .padding(top = 8.dp)

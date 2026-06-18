@@ -1,5 +1,6 @@
 [versions]
 agp = "9.2.1"
+coilCompose = "2.7.0"
 converterGson = "3.0.0"
 coreKtx = "1.19.0"
 hiltAndroid = "2.59.2"
@@ -25,6 +26,7 @@ timber = "5.0.1"
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomCompiler" }
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomCompiler" }
+coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coilCompose" }
 converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "converterGson" }
 dagger = { module = "com.google.dagger:dagger", version.ref = "hiltAndroid" }
 dagger-compiler = { module = "com.google.dagger:dagger-compiler", version.ref = "hiltAndroid" }

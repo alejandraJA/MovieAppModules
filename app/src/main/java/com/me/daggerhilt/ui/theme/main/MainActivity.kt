@@ -8,13 +8,15 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import com.me.daggerhilt.ui.theme.DaggerHiltTheme
+import com.me.daggerhilt.ui.theme.main.movies.MoviesView
+import com.me.domain.Movie
+import com.me.domain.UiState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -28,35 +30,25 @@ class MainActivity : ComponentActivity() {
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
         enableEdgeToEdge()
         setContent {
+            val moviesState by viewModel.movies.collectAsStateWithLifecycle(
+                UiState.Loading(listOf())
+            )
             DaggerHiltTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
+                    if (moviesState is UiState.Success) {
+                        val list = (moviesState as UiState.Success<List<Movie>>).data
+                        MoviesView(
+                            list = list,
+                            modifier = Modifier.padding(innerPadding),
+                            onViewMore = onViewMore()
+                        )
+                    }
                 }
             }
         }
-        lifecycleScope.launch {
-            viewModel.movies.collect {
-                Log.d("Ali", "onCreate: $it")
-            }
-        }
     }
-}
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
+    fun onViewMore(): (Movie) -> Unit = { movie ->
 
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    DaggerHiltTheme {
-        Greeting("Android")
     }
 }

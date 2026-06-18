@@ -67,5 +67,6 @@ dependencies {
     // Dagger
     implementation(libs.dagger)
     ksp(libs.dagger.compiler)
+    implementation(libs.coil.compose)
 
 }
