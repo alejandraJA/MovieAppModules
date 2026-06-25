@@ -42,41 +42,26 @@ fun MoviesViewPreview() {
     DaggerHiltTheme {
         Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
             innerPadding
+            val movie = Movie(
+                id = 1,
+                like = false,
+                adult = false,
+                backdropPath = "",
+                genreIds = listOf(),
+                originalLanguage = "en",
+                originalTitle = "Lorem ipsum dolor sit amet",
+                overview = "Lorem ipsum dolor sit amet consectetur adipiscing elit ",
+                popularity = 0.0,
+                posterPath = "",
+                releaseDate = "",
+                title = "Lorem ipsum dolor sit amet",
+                video = false,
+                voteAverage = 0.0,
+                voteCount = 0
+            )
             MoviesView(
-                listOf(
-                    Movie(
-                        1,
-                        "Movie 1",
-                        "Movie 1",
-                        overview = "Overview 1",
-                        posterPath = "/alf3JOPP7EYP0iO24gwe5YfRnqo.jpg",
-                        like = true
-                    ),
-                    Movie(
-                        2,
-                        "Movie 2",
-                        "Movie 2",
-                        overview = "Overview 2",
-                        posterPath = "/alf3JOPP7EYP0iO24gwe5YfRnqo.jpg",
-                        like = true
-                    ),
-                    Movie(
-                        3,
-                        "Movie 3",
-                        "Movie 3",
-                        overview = "Overview 3",
-                        posterPath = "/alf3JOPP7EYP0iO24gwe5YfRnqo.jpg",
-                        like = true
-                    ),
-                    Movie(
-                        4,
-                        "Movie 4",
-                        "Movie 4",
-                        overview = "Overview 4",
-                        posterPath = "/alf3JOPP7EYP0iO24gwe5YfRnqo.jpg",
-                        like = true
-                    ),
-                ), modifier = Modifier.padding(innerPadding)
+                listOf(movie, movie, movie, movie, movie, movie, movie, movie, movie),
+                modifier = Modifier.padding(innerPadding)
             )
         }
     }

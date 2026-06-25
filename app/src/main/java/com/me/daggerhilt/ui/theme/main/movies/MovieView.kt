@@ -65,7 +65,7 @@ fun MovieView(
                 )
                 Spacer(modifier = Modifier.weight(1f))
                 TextButton(
-                    onClick = { },
+                    onClick = { onViewMore(movie) },
                     modifier = Modifier
                         .align(Alignment.End)
                         .padding(end = 16.dp, bottom = 8.dp),
@@ -83,14 +83,24 @@ fun MovieView(
 fun MovieViewPreview() {
     DaggerHiltTheme {
         Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+            innerPadding
             MovieView(
                 Movie(
                     id = 1,
-                    title = "Movie 1",
-                    originalTitle = "Movie 1",
-                    overview = "Overview",
+                    like = false,
+                    adult = false,
+                    backdropPath = "",
+                    genreIds = listOf(),
+                    originalLanguage = "en",
+                    originalTitle = "Lorem ipsum dolor sit amet",
+                    overview = "Lorem ipsum dolor sit amet consectetur adipiscing elit ",
+                    popularity = 0.0,
                     posterPath = "",
-                    like = true
+                    releaseDate = "",
+                    title = "Lorem ipsum dolor sit amet",
+                    video = false,
+                    voteAverage = 0.0,
+                    voteCount = 0
                 )
             )
         }

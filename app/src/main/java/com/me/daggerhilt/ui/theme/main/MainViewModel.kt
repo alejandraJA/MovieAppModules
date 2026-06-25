@@ -12,6 +12,6 @@ import kotlinx.coroutines.flow.Flow
 class MainViewModel @Inject constructor(
     private val repository: IMovieRepository
 ) : ViewModel() {
-    val movies: Flow<UiState<List<Movie>>> = repository.loadMovies()
+    val movies: Flow<UiState<List<Movie>>> = repository.loadMovies(1)
     fun updateMovie(id: Int, check: Boolean) = repository.updateMovie(id, check)
 }

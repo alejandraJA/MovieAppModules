@@ -8,6 +8,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.ViewModelProvider
@@ -35,13 +36,25 @@ class MainActivity : ComponentActivity() {
             )
             DaggerHiltTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    if (moviesState is UiState.Success) {
-                        val list = (moviesState as UiState.Success<List<Movie>>).data
-                        MoviesView(
-                            list = list,
+                    when (moviesState) {
+                        is UiState.Success<List<Movie>> ->
+                            MoviesView(
+                            list =  (moviesState as UiState.Success<List<Movie>>).data,
                             modifier = Modifier.padding(innerPadding),
                             onViewMore = onViewMore()
                         )
+                        is UiState.Error -> {
+                            (moviesState as UiState.Error<List<Movie>>).message
+                        }
+                        is UiState.Loading -> {
+
+                        }
+                        else -> {
+
+                        }
+                    }
+                    if (moviesState is UiState.Success) {
+                        val list = (moviesState as UiState.Success<List<Movie>>).data
                     }
                 }
             }

@@ -2,9 +2,18 @@ package com.me.domain
 
 data class Movie(
     val id: Int,
-    val title: String,
+    val like: Boolean,
+    val adult: Boolean,
+    val backdropPath: String,
+    val genreIds: List<Int>,
+    val originalLanguage: String,
     val originalTitle: String,
     val overview: String,
+    val popularity: Double,
     val posterPath: String,
-    val like: Boolean
+    val releaseDate: String,
+    val title: String,
+    val video: Boolean,
+    val voteAverage: Double,
+    val voteCount: Int,
 )
