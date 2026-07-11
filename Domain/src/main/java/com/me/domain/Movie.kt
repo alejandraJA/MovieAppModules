@@ -17,3 +17,9 @@ data class Movie(
     val voteAverage: Double,
     val voteCount: Int,
 )
+
+data class MovieUiState(
+    val currentPage: Int = 1,
+    val totalPages: Int = 1,
+    val movies: List<Movie>
+)

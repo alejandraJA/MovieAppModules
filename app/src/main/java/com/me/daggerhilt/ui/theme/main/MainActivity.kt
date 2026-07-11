@@ -1,25 +1,22 @@
 package com.me.daggerhilt.ui.theme.main
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.lifecycleScope
 import com.me.daggerhilt.ui.theme.DaggerHiltTheme
 import com.me.daggerhilt.ui.theme.main.movies.MoviesView
 import com.me.domain.Movie
+import com.me.domain.MovieUiState
 import com.me.domain.UiState
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -32,29 +29,27 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             val moviesState by viewModel.movies.collectAsStateWithLifecycle(
-                UiState.Loading(listOf())
+                UiState.Loading()
             )
             DaggerHiltTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     when (moviesState) {
-                        is UiState.Success<List<Movie>> ->
+                        is UiState.Success<MovieUiState> -> {
+                            val moviesUiState = moviesState as UiState.Success<MovieUiState>
                             MoviesView(
-                            list =  (moviesState as UiState.Success<List<Movie>>).data,
-                            modifier = Modifier.padding(innerPadding),
-                            onViewMore = onViewMore()
-                        )
-                        is UiState.Error -> {
-                            (moviesState as UiState.Error<List<Movie>>).message
+                                list = moviesUiState.data.movies,
+                                page = moviesUiState.data.currentPage,
+                                totalPages = moviesUiState.data.totalPages,
+                                modifier = Modifier.padding(innerPadding),
+                                onViewMore = onViewMore()
+                            )
                         }
+
+                        is UiState.Error -> (moviesState as UiState.Error<MovieUiState>).message
+
                         is UiState.Loading -> {
 
                         }
-                        else -> {
-
-                        }
-                    }
-                    if (moviesState is UiState.Success) {
-                        val list = (moviesState as UiState.Success<List<Movie>>).data
                     }
                 }
             }
