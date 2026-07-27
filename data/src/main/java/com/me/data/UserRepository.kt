@@ -5,30 +5,42 @@ import com.me.domain.Constants
 import com.me.domain.IUserRepository
 import jakarta.inject.Inject
 import jakarta.inject.Singleton
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
 @Singleton
 class UserRepository @Inject constructor(private val storage: Storage) : IUserRepository {
-    private var userName: String
-        get() = storage.getString(Constants.REGISTERED_USER)?: ""
-        set(value) = storage.setString(Constants.REGISTERED_USER, value)
+    override val userName: Flow<String> =
+        storage.getStringFlow(Constants.REGISTERED_USER)
+            .map { it.orEmpty() }
 
-    private var password: String
-        get() = storage.getString(Constants.PASSWORD)?: ""
-        set(value) = storage.setString(Constants.PASSWORD, value)
+    override val isUserRegistered: Flow<Boolean> =
+        userName
+            .map { userName -> !userName.isNullOrEmpty() }
 
-    override fun isUserRegistered() = userName.isNotEmpty()
-
-    override fun registerUser(userName: String, password: String) {
-        this.userName = userName
-        this.password = password
+    override suspend fun registerUser(userName: String, password: String) {
+        storage.setStrings(
+            mapOf(
+                Constants.REGISTERED_USER to userName,
+                Constants.PASSWORD to password,
+            )
+        )
     }
 
-    override fun loginUser(userName: String, password: String) =
-        this.userName == userName && this.password == password
+    override suspend fun loginUser(userName: String, password: String): Boolean {
+        val registeredUserName = storage.getString(Constants.REGISTERED_USER).orEmpty()
+        val registeredPassword = storage.getString(Constants.PASSWORD).orEmpty()
 
-    override fun logout() {
-        userName = ""
-        password = ""
+        return registeredUserName == userName && registeredPassword == password
+    }
+
+    override suspend fun logout() {
+        storage.setStrings(
+            mapOf(
+                Constants.REGISTERED_USER to "",
+                Constants.PASSWORD to "",
+            )
+        )
     }
 
 }
