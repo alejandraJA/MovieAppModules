@@ -1,4 +1,4 @@
-package com.me.daggerhilt.ui.theme.main.movie
+package com.me.daggerhilt.ui.main.movie
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement

@@ -1,4 +1,4 @@
-package com.me.daggerhilt.ui.theme.sing
+package com.me.daggerhilt.ui.sing
 
 import androidx.lifecycle.ViewModel
 import com.me.data.UserRepository

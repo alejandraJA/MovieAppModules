@@ -1,4 +1,4 @@
-package com.me.daggerhilt.ui.theme.sing
+package com.me.daggerhilt.ui.sing
 
 import android.content.Intent
 import android.os.Bundle
@@ -12,9 +12,9 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.ViewModelProvider
 import com.me.daggerhilt.ui.theme.DaggerHiltTheme
-import com.me.daggerhilt.ui.theme.main.MainActivity
-import com.me.daggerhilt.ui.theme.sing.view.LoginView
-import com.me.daggerhilt.ui.theme.sing.view.RegisterView
+import com.me.daggerhilt.ui.main.MainActivity
+import com.me.daggerhilt.ui.sing.view.LoginView
+import com.me.daggerhilt.ui.sing.view.RegisterView
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -29,11 +29,11 @@ class SingInActivity : ComponentActivity() {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPaging ->
                     if (viewModel.isUserRegistered) LoginView(
                         onLogin = onLogin(),
-                        modifierColumn = Modifier.padding(innerPaging),
+                        modifier = Modifier.padding(innerPaging),
                     )
                     else RegisterView(
                         onSingIn = onRegister(),
-                        modifierColumn = Modifier.padding(innerPaging),
+                        modifier = Modifier.padding(innerPaging),
                     )
                 }
             }

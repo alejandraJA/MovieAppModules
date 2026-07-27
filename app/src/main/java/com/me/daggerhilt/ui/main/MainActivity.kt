@@ -1,4 +1,4 @@
-package com.me.daggerhilt.ui.theme.main
+package com.me.daggerhilt.ui.main
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -12,7 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.me.daggerhilt.ui.theme.DaggerHiltTheme
-import com.me.daggerhilt.ui.theme.main.movies.MoviesView
+import com.me.daggerhilt.ui.main.movies.MoviesView
 import com.me.domain.Movie
 import com.me.domain.MovieUiState
 import com.me.domain.UiState

@@ -1,4 +1,4 @@
-package com.me.daggerhilt.ui.theme.vintage.phone.ui.theme
+package com.me.daggerhilt.ui.phone.ui.theme
 
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme

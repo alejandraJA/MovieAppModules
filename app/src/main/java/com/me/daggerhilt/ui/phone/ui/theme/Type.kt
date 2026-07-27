@@ -1,4 +1,4 @@
-package com.me.daggerhilt.ui.theme.vintage.phone.ui.theme
+package com.me.daggerhilt.ui.phone.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

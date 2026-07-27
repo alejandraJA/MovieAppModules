@@ -1,4 +1,4 @@
-package com.me.daggerhilt.ui.theme.main.movies
+package com.me.daggerhilt.ui.main.movies
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -73,7 +73,6 @@ fun MoviesView(
 fun MoviesViewPreview() {
     DaggerHiltTheme(darkTheme = true) {
         Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-            innerPadding
             val movie = Movie(
                 id = 1,
                 like = false,

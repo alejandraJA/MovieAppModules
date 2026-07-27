@@ -1,4 +1,4 @@
-package com.me.daggerhilt.ui.theme.sing.view
+package com.me.daggerhilt.ui.sing.view
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -21,19 +21,19 @@ import com.me.daggerhilt.ui.theme.DaggerHiltTheme
 @Composable
 fun RegisterView(
     onSingIn: (user: String, password: String) -> Unit = { _, _ -> },
-    modifierColumn: Modifier = Modifier
+    modifier: Modifier = Modifier
         .padding(horizontal = 16.dp)
         .padding(top = 8.dp),
 ) {
     val user = remember { mutableStateOf("") }
     val password = remember { mutableStateOf("") }
-    val  modifier: Modifier = Modifier
+    val  commonModifier: Modifier = Modifier
         .padding(horizontal = 16.dp)
         .padding(top = 8.dp)
-    Column(modifier = modifierColumn.padding()) {
+    Column(modifier = modifier.padding()) {
         Text(
             text = stringResource(R.string.register_now),
-            modifier = modifier
+            modifier = commonModifier
                 .padding(top = 16.dp)
         )
         TextField(
@@ -42,7 +42,7 @@ fun RegisterView(
                 user.value = it
             },
             label = { Text(text = stringResource(R.string.user)) },
-            modifier = modifier
+            modifier = commonModifier
                 .padding(top = 8.dp)
                 .fillMaxWidth(),
         )
@@ -52,14 +52,14 @@ fun RegisterView(
                 password.value = it
             },
             label = { Text(text = stringResource(R.string.password)) },
-            modifier = modifier
+            modifier = commonModifier
                 .fillMaxWidth(),
         )
         Button(
             onClick = {
                 onSingIn(user.value, password.value)
             },
-            modifier = modifier
+            modifier = commonModifier
                 .fillMaxWidth()
         ) {
             Text(text = stringResource(R.string.register))
@@ -72,9 +72,8 @@ fun RegisterView(
 fun RegisterViewPreview() {
     DaggerHiltTheme {
         Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-            innerPadding
             RegisterView(
-                modifierColumn = Modifier.padding(innerPadding),
+                modifier = Modifier.padding(innerPadding),
             )
         }
     }

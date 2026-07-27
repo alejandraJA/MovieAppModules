@@ -1,4 +1,4 @@
-package com.me.daggerhilt.ui.theme.main
+package com.me.daggerhilt.ui.main
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

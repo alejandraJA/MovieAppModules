@@ -1,4 +1,4 @@
-package com.me.daggerhilt.ui.theme.vintage.phone
+package com.me.daggerhilt.ui.phone
 
 import android.os.Build
 import android.os.Bundle
@@ -53,7 +53,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.me.daggerhilt.ui.theme.vintage.phone.ui.theme.DaggerHiltTheme
+import com.me.daggerhilt.ui.phone.ui.theme.DaggerHiltTheme
 import kotlinx.coroutines.launch
 import kotlin.math.abs
 import kotlin.math.atan2
@@ -266,7 +266,9 @@ fun RotaryDialPhoneKeyboard(
                 colors = colors
             )
 
-            Stopper()
+            Stopper(
+                colors = colors
+            )
         }
     }
 }

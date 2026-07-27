@@ -1,4 +1,4 @@
-package com.me.daggerhilt.ui.theme.sing.view
+package com.me.daggerhilt.ui.sing.view
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -21,19 +21,19 @@ import com.me.daggerhilt.ui.theme.DaggerHiltTheme
 @Composable
 fun LoginView(
     onLogin: (user: String, password: String) -> Unit = { _, _ -> },
-    modifierColumn: Modifier = Modifier
+    modifier: Modifier = Modifier
         .padding(horizontal = 16.dp)
         .padding(top = 8.dp),
 ) {
     val user = remember { mutableStateOf("User") }
     val password = remember { mutableStateOf("1234") }
-    val modifier = Modifier
+    val commonModifier = Modifier
         .padding(horizontal = 16.dp)
         .padding(top = 8.dp)
-    Column(modifier = modifierColumn) {
+    Column(modifier = modifier) {
         Text(
             text = stringResource(R.string.login),
-            modifier = modifier
+            modifier = commonModifier
                 .padding(top = 16.dp)
         )
         TextField(
@@ -42,7 +42,7 @@ fun LoginView(
                 user.value = it
             },
             label = { Text(text = stringResource(R.string.user)) },
-            modifier = modifier
+            modifier = commonModifier
                 .padding(top = 8.dp)
                 .fillMaxWidth(),
         )
@@ -52,14 +52,14 @@ fun LoginView(
                 password.value = it
             },
             label = { Text(text = stringResource(R.string.password)) },
-            modifier = modifier
+            modifier = commonModifier
                 .fillMaxWidth(),
         )
         Button(
             onClick = {
                 onLogin(user.value, password.value)
             },
-            modifier = modifier
+            modifier = commonModifier
                 .fillMaxWidth()
         ) {
             Text(text = stringResource(R.string.login))
@@ -72,9 +72,8 @@ fun LoginView(
 fun LoginViewPreview() {
     DaggerHiltTheme {
         Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-            innerPadding
             LoginView(
-                modifierColumn = Modifier.padding(innerPadding),
+                modifier = Modifier.padding(innerPadding),
             )
         }
     }

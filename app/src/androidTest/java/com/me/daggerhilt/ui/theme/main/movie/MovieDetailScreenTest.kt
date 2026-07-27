@@ -7,6 +7,8 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
+import com.me.daggerhilt.ui.main.movie.MovieDetailScreen
+import com.me.daggerhilt.ui.main.movie.MovieDetailTestTags
 import com.me.domain.Movie
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
