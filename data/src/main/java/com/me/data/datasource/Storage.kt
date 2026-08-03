@@ -7,6 +7,7 @@ import androidx.datastore.preferences.preferencesDataStore
 import com.me.domain.Constants
 import dagger.hilt.android.qualifiers.ApplicationContext
 import jakarta.inject.Inject
+import jakarta.inject.Singleton
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.first
@@ -14,6 +15,8 @@ import kotlinx.coroutines.flow.map
 
 private val Context.userDataStore by preferencesDataStore(name = Constants.USER_MEMORY)
 
+
+@Singleton
 class Storage @Inject constructor(
     @ApplicationContext context: Context
 ) {
