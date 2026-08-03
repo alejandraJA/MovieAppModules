@@ -3,10 +3,10 @@ package com.me.data
 import com.me.data.datasource.Storage
 import com.me.domain.Constants
 import com.me.domain.IUserRepository
-import jakarta.inject.Inject
-import jakarta.inject.Singleton
-import kotlinx.coroutines.flow.Flow
+ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import javax.inject.Inject
+import javax.inject.Singleton
 
 @Singleton
 class UserRepository @Inject constructor(private val storage: Storage) : IUserRepository {
