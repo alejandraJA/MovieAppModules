@@ -22,12 +22,15 @@ okhttp = "5.4.0"
 okhttpUrlconnection = "5.4.0"
 retrofit = "3.0.0"
 roomCompiler = "2.8.4"
+sqlite = "2.6.2"
+sqlcipherAndroid = "4.17.0"
 timber = "5.0.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomCompiler" }
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomCompiler" }
+androidx-sqlite = { module = "androidx.sqlite:sqlite", version.ref = "sqlite" }
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coilCompose" }
 converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "converterGson" }
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
@@ -56,6 +59,7 @@ material = { group = "com.google.android.material", name = "material", version.r
 okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
 okhttp-urlconnection = { module = "com.squareup.okhttp3:okhttp-urlconnection", version.ref = "okhttpUrlconnection" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+sqlcipher-android = { module = "net.zetetic:sqlcipher-android", version.ref = "sqlcipherAndroid" }
 timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
 
 [plugins]
@@ -63,6 +67,5 @@ android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 android-library = { id = "com.android.library", version.ref = "agp" }
 com-google-android-ksp= { id = "com.google.devtools.ksp" }
-hilt-android-plugin = { id = "dagger.hilt.android.plugin" }
 com-google-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 com-google-dagger-hilt  = { id = "com.google.dagger.hilt.android", version.ref = "daggerHilt" }

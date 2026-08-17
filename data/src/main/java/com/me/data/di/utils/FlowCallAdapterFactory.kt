@@ -8,6 +8,7 @@ import java.lang.reflect.ParameterizedType
 import java.lang.reflect.Type
 
 class FlowCallAdapterFactory : CallAdapter.Factory() {
+    @Throws(TypeMustBeResourceException::class, ResourceMustBeParameterizedException::class)
     override fun get(
         returnType: Type,
         annotations: Array<Annotation>,
@@ -18,13 +19,12 @@ class FlowCallAdapterFactory : CallAdapter.Factory() {
         }
         val observableType = getParameterUpperBound(0, returnType as ParameterizedType)
         val rawObservableType = getRawType(observableType)
-        if (rawObservableType != ApiResponse::class.java) {
-            throw IllegalArgumentException("type must be a resource")
-        }
-        if (observableType !is ParameterizedType) {
-            throw IllegalArgumentException("resource must be parameterized")
-        }
+        if (rawObservableType != ApiResponse::class.java)
+            throw TypeMustBeResourceException()
+        if (observableType !is ParameterizedType)
+            throw ResourceMustBeParameterizedException()
         val bodyType = getParameterUpperBound(0, observableType)
-        return FlowCallAdapter<Any>(bodyType)
+        return FlowCallAdapter(bodyType)
     }
 }
+

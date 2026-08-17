@@ -43,6 +43,8 @@ dependencies {
     // Room
     implementation(libs.androidx.room.runtime)
     ksp(libs.androidx.room.compiler)
+    implementation(libs.androidx.sqlite)
+    implementation(libs.sqlcipher.android)
     // RETROFIT
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
